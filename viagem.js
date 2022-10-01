@@ -1,3 +1,10 @@
+let cadastroCliente = []
+let vooCadastrado = []
+let pacoteViagemcadastro = []
+let passagensArea = []
+let passagemAreaArray = []
+continuar = true
+
 
 class Cliente {
     #Nome
@@ -33,12 +40,12 @@ class Cliente {
     }
 
     BuscarNome() {
-       
+
         return this.#Nome
     }
 
     BuscarCpf() {
-        
+
         return this.#Cpf
     }
     BuscarDataNascimento() {
@@ -165,9 +172,9 @@ class PassagemArea {
     }
     DefinirPrimeiraClasse(primeiraClasse) {
 
-        if ( primeiraClasse == true || primeiraClasse == false ) {
+        if (primeiraClasse == true || primeiraClasse == false) {
             this.#PrimeiraClasse = primeiraClasse
-        return
+            return
         }
         alert("Esse metodo  aceita somente um valor booleano.")
 
@@ -194,11 +201,11 @@ class PassagemArea {
         return this.#Assento
     }
     BuscarPrimeiraClasse() {
-        
+
         return this.#PrimeiraClasse
     }
     BuscarValor() {
-      
+
         return this.#Valor
     }
     BuscarEPassageiro() {
@@ -221,21 +228,168 @@ class PassagemArea {
 
     }
     ExibirResumo() {
-        console.log("Numero assento :", this.#Assento, "Nome Passageiro :", this.#Passageiro.BuscarNome(), "Número Voo:", this.#Voo.BuscarNumero(), "Local Destino:", this.#Voo.BuscarLocalDeDestino())
+        console.log("Numero assento :",
+            this.#Assento, "Nome Passageiro :",
+            this.#Passageiro.BuscarNome(), "Número Voo:",
+            this.#Voo.BuscarNumero(), "Local Destino:",
+            this.#Voo.BuscarLocalDeDestino())
+    }
+
+}
+//Área Teste.
+let pessoa = new Cliente("David", "440.929", "02/03/1994")
+//console.log(pessoa)
+
+let empresaAeria = new Voo("Azul", "4541", "27/09/22", 20, "SP", "PE")
+let empresaAeria2 = new Voo("Azul", "4542", "27/09/22", 20, "BF", "SP")
+let empresaAeria3 = new Voo("Azul", "4543", "27/09/22", 20, "SP", "BF")
+let empresaAeria4 = new Voo("Azul", "4544", "27/09/22", 20, "SP", "BF")
+let empresaAeria5 = new Voo("Azul", "4545", "27/09/22", 20, "RJ", "PE")
+let empresaAeria6 = new Voo("Azul", "4546", "27/09/22", 20, "PE", "RJ")
+let empresaAeria7 = new Voo("Azul", "4547", "27/09/22", 20, "SC", "PE")
+let empresaAeria8 = new Voo("Azul", "4548", "27/09/22", 20, "PE", "SC")
+let empresaAeria9 = new Voo("Azul", "4549", "27/09/22", 20, "RJ", "PE")
+let empresaAeria10 = new Voo("Azul", "4550", "27/09/22", 20, "PE", "SP")
+
+vooCadastrado.push(empresaAeria, empresaAeria2, empresaAeria3, empresaAeria4, empresaAeria5, empresaAeria6, empresaAeria7, empresaAeria8, empresaAeria9, empresaAeria10)
+
+
+let passagem = new PassagemArea(1, true, 100, pessoa, empresaAeria.BuscarNumero())
+let passagem2 = new PassagemArea(2, true, 100, pessoa, empresaAeria.BuscarNumero())
+let passagem3 = new PassagemArea(3, true, 100, pessoa, empresaAeria2.BuscarNumero())
+let passagem4 = new PassagemArea(4, true, 100, pessoa, empresaAeria4.BuscarNumero())
+let passagem5 = new PassagemArea(5, true, 100, pessoa, empresaAeria5.BuscarNumero())
+passagemAreaArray.push(passagem, passagem2, passagem3, passagem4, passagem5)
+
+
+//let pacote = new PacoteViagem("David", passagem, passagem, 2000)
+
+//console.log(pacote)
+
+
+while (continuar) {
+
+    let opcaoEscolha = opcao()
+
+    switch (opcaoEscolha) {
+
+        case "1":
+            let cadastro = new Cliente(
+                prompt("Digite seu nome:"),
+                prompt("Digite seu CPF :"),
+                prompt("Digite sua data de nascimento:"))
+            cadastroCliente.push(cadastro)
+
+            break;
+        case "2":
+            let cadastroVoo = new Voo(
+                prompt("Empresa: "),
+                prompt("Número: "),
+                prompt("Data: "),
+                prompt("Horario: "),
+                prompt("Local Partida: "),
+                prompt("Local Destino: "))
+            vooCadastrado.push(cadastroVoo)
+            break;
+
+        case "3":
+            let cadastroPacoteViagem = new PacoteViagem()
+
+            cadastroPacoteViagem.DefinirTitular(prompt("Titular: "))
+
+            let cliente = new Cliente(
+                prompt("Nome :"),
+                prompt("CPF :"),
+                prompt("Data Nascimento :")
+            )
+
+            VooDisponiveis()
+
+            cadastroPacoteViagem.DefinirPassagemIda(prompt("Passagem Ida: "))
+
+            let passagemIda = NewPassagemArea(cliente)
+
+
+
+            Consulta(cadastroPacoteViagem.BuscarPassagemIda())
+
+            cadastroPacoteViagem.DefinirPassagemVolta(prompt("Passagem Volta:"))
+
+            let passagemVolta = NewPassagemArea(cliente)
+
+            cadastroPacoteViagem.DefinirValorTotal(Number(passagemIda.BuscarValor() + passagemVolta.BuscarValor()))
+
+            pacoteViagemcadastro.push(cadastroPacoteViagem)
+
+            console.log(cadastroPacoteViagem)
+
+            console.log(passagemIda.ExibirResumo())
+            console.log(passagemVolta.ExibirResumo())
+
+
+            break;
+
+        case "4":
+            continuar = false
+            break;
+
     }
 
 }
 
-let pessoa = new Cliente("David", "440.929.618-87", "02/03/1994")
-console.log(pessoa)
+function opcao() {
+    return prompt("Aperte (1)cadastrar Cliente,(2)Voo, (3),Pacote Viagem (4)encerrar")
+}
 
-let empresaAeria = new Voo("Azul", "4545", "27/09/22", 20, "Aeroporto Congonhas -SP", "aeroporto Quararapes - Resife,PE")
-console.log(empresaAeria)
 
-let passagem = new PassagemArea(25, true, 2000, pessoa, empresaAeria)
-console.log(passagem)
+function VooDisponiveis() {
 
-let pacote = new PacoteViagem("David", passagem, passagem, 2000)
-console.log(pacote)
+    console.log("Voos Disponível: ")
 
-passagem.ExibirResumo()
+    vooCadastrado.forEach(x => {
+        console.log(x)
+    })
+}
+
+function Consulta(localDeDestino) {
+
+    console.log("Voos Disponível: ")
+
+    vooCadastrado.forEach(voo => {
+        if (voo.BuscarLocalDePartida() === localDeDestino) {
+            console.log(voo)
+        }
+    })
+}
+
+function NewPassagemArea(cliente) {
+    let sair = true
+    let Assento
+    let Voo = prompt("Voo: ")
+    let acharVoo = vooCadastrado.find(voo => voo.BuscarNumero() == Voo)
+
+    while (sair) {
+        Assento = Number(prompt("Assento: "))
+        sair = ConsultaAssento(Assento, Voo)
+    }
+    let PrimeiraClasse = Boolean(prompt("PrimeiraClasse :"))
+    let Valor = Number(prompt("Valor: "))
+    let passagemArea = new PassagemArea(Assento, PrimeiraClasse, Valor, cliente, acharVoo)
+    passagemAreaArray.push(passagemArea)
+
+    console.log(passagemAreaArray)
+    return passagemArea
+}
+
+function ConsultaAssento(Assento, Voo) {
+    console.clear()
+
+    let vooExistente = passagemAreaArray.filter(voo => voo.BuscarVoo() === Voo).find(voo => voo.BuscarAssento() === Assento)
+
+    if (vooExistente) {
+        console.log('Assento Ocupado')
+        return true
+    }
+
+    return false
+}
